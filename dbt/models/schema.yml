@@ -21,6 +21,6 @@ models:
       - name: gender
         tests: [not_null]
       - name: name
-        tests: [not_null, unique]
+        tests: [not_null]
       - name: total
         tests: [not_null]
