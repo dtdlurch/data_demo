@@ -5,8 +5,8 @@ gcp_dbt_demo:
     dev:
       type: bigquery
       method: service-account
-      project: YOUR_GCP_PROJECT_ID
+      project: fast-archive-470501-a3
       dataset: demo_dbt
       threads: 4
-      keyfile: /absolute/path/to/gcp.json
+      keyfile: /Users/adamjones/Documents/git/data_demo/gcp.json
       location: US
