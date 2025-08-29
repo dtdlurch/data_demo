@@ -1,0 +1,12 @@
+
+gcp_dbt_demo:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: YOUR_GCP_PROJECT_ID
+      dataset: demo_dbt
+      threads: 4
+      keyfile: /absolute/path/to/gcp.json
+      location: US

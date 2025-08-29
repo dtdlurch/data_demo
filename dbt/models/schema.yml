@@ -1,0 +1,26 @@
+
+version: 2
+
+models:
+  - name: stg_popular_names
+    columns:
+      - name: state
+        tests: [not_null]
+      - name: gender
+        tests: [not_null]
+      - name: name
+        tests: [not_null]
+      - name: total
+        tests:
+          - not_null
+
+  - name: top_names_by_state_gender
+    columns:
+      - name: state
+        tests: [not_null]
+      - name: gender
+        tests: [not_null]
+      - name: name
+        tests: [not_null, unique]
+      - name: total
+        tests: [not_null]

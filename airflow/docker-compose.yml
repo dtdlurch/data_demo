@@ -1,0 +1,21 @@
+
+services:
+  airflow:
+    image: apache/airflow:2.9.3
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.basic_auth
+      - _PIP_ADDITIONAL_REQUIREMENTS=dbt-bigquery google-cloud-bigquery
+      - AIRFLOW_UID=${AIRFLOW_UID:-50000}
+    user: "${AIRFLOW_UID:-50000}:0"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ../dbt:/opt/airflow/dbt
+      - ./secrets:/opt/airflow/secrets
+    command: >
+      bash -lc "airflow db init &&
+                airflow users create --role Admin --username airflow --password airflow --firstname a --lastname b --email a@b.com &&
+                airflow webserver &
+                airflow scheduler"
