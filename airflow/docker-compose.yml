@@ -14,8 +14,10 @@ services:
       - ./dags:/opt/airflow/dags
       - ../dbt:/opt/airflow/dbt
       - ./secrets:/opt/airflow/secrets
-    command: >
-      bash -lc "airflow db init &&
-                airflow users create --role Admin --username airflow --password airflow --firstname a --lastname b --email a@b.com &&
-                airflow webserver &
-                airflow scheduler"
+  command: >
+    bash -lc "
+      airflow db migrate &&
+      airflow users create --role Admin --username airflow --password airflow --firstname a --lastname b --email a@b.com || true &&
+      airflow scheduler & 
+      exec airflow webserver --port 8080
+    "

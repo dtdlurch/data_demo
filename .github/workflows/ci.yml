@@ -25,12 +25,12 @@ jobs:
 
       - name: Create service account key file
         run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > gcp.json
+          printf '%s' "${{ secrets.GCP_SA_KEY }}" > gcp.json
 
       - name: Create dbt profiles.yml
         run: |
           mkdir -p dbt/profiles
-          cat > dbt/profiles/profiles.yml << 'EOF'
+          cat > dbt/profiles/profiles.yml << EOF
           gcp_dbt_demo:
             target: dev
             outputs:
@@ -40,7 +40,7 @@ jobs:
                 project: ${{ secrets.GCP_PROJECT_ID }}
                 dataset: ${{ secrets.DBT_DATASET }}
                 threads: 4
-                keyfile: $GITHUB_WORKSPACE/gcp.json
+                keyfile: ${{ github.workspace }}/gcp.json
                 location: ${{ secrets.GCP_LOCATION }}
           EOF
 
